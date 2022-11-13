@@ -1,0 +1,69 @@
+</html>
+<header>
+  <title>Streak count</title>
+  </header>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/tgs-player.js"></script>
+  <link rel="stylesheet" href="streakButton.css">
+    <body>
+      <button id = 'reset'>reset</button>
+    <div class="flex-container">
+   
+
+  <div id="container" class="container flexchild">
+</div>
+
+  <div class = 'flexchild'><div class = 'number'><h1 class ='count' style="color:grey ;"></h1></div></div>
+  </div>
+
+</body>
+<script type = 'module'>
+import lottie from "https://cdn.skypack.dev/lottie-web@5.7.14";
+let container = document.getElementById("container");
+let animation;
+let animationCompleted = true;
+let counter = localStorage.getItem('count')
+console.log(counter)
+animation = lottie.loadAnimation({
+  container: container,
+  renderer: 'svg',
+  loop: false,
+  autoplay: false,
+  path: 'https://assets4.lottiefiles.com/packages/lf20_7n00ftey.json',
+  
+
+});
+animation.addEventListener("complete", () => {
+  animationCompleted = true;
+});
+
+container.addEventListener("click", () => {
+  if (animationCompleted) {
+    animation.goToAndPlay(0, true);    
+    animationCompleted = false;
+  
+  }
+  counter++
+  if (counter > 0){document.querySelector('.number').classList.add('color')}
+  document.querySelector("h1").innerHTML = counter
+localStorage.setItem("count", counter)
+
+});
+window.onload = loadCache();
+function loadCache(){
+  if( localStorage.getItem('count') == null){
+    document.querySelector('.count').innerHTML = 0
+} else
+  {
+  document.querySelector('.count').innerHTML = counter
+}}
+document.getElementById('reset').addEventListener('click',() =>{
+  console.log('button clicked')
+  counter = 0
+  document.querySelector('.number').classList.remove('color')
+  localStorage.setItem("count", counter)
+
+  document.querySelector('.count').innerHTML = counter
+
+})
+</script>
+
